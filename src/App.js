@@ -1,10 +1,9 @@
-
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {NavSection} from './containers/NavSection';
 
 function App() {
   return (
-    <div className="App">
-      It's React
-    </div>
+    <NavSection/>
   );
 }
 
