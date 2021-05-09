@@ -7,3 +7,12 @@ export const StyledLogo = styled.svg`
   fill: #fff;
   text-align: center;
 `;
+
+export const CategoryTitleWrap = styled.div`
+  margin-bottom: .5%;
+`;
+
+export const CategoryText = styled.h2`
+  color: #fff;
+  font-size: 1.6em;
+`;

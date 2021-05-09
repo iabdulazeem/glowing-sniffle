@@ -1,37 +1,14 @@
 import React from "react";
 import OwlCarousel from "react-owl-carousel";
+import {SliderCarouselOptions} from '../../utils/constants';
 import "owl.carousel/dist/assets/owl.carousel.css";
 import "owl.carousel/dist/assets/owl.theme.default.css";
-import "./index.css"
+import "../../utils/commonStyles.css";
 
 export const Slider = (props) => {
-  const leftArrowSvg="<svg xmlns='http://www.w3.org/2000/svg' fill='#fff' width='24' height='24' viewBox='0 0 24 24'><path d='M16.67 0l2.83 2.829-9.339 9.175 9.339 9.167-2.83 2.829-12.17-11.996z'/></svg>"
-  const rightArrowSvg="<svg xmlns='http://www.w3.org/2000/svg' fill='#fff' width='24' height='24' viewBox='0 0 24 24'><path d='M7.33 24l-2.83-2.829 9.339-9.175-9.339-9.167 2.83-2.829 12.17 11.996z'/></svg>"
-  const options= {
-    loop: true,
-    center: true,
-    autoplay: true,
-    autoplayTimeout: 3000,
-    margin: 10,
-    nav: true,
-    navText:[`<div class='nav-btn prev-slide'>${leftArrowSvg}</div>`,`<div class='nav-btn next-slide'>${rightArrowSvg}</div>`],
-    smartSpeed :900,
-    dots: false,
-    responsive: {
-        0: {
-            items: 1,
-        },
-        600: {
-            items: 1,
-        },
-        1000: {
-            items: 2,
-        },
-    },
-}
   return (
-      <div style={{height:200, zIndex:1}}>
-        <OwlCarousel className='owl-theme' {...options}>
+      <div style={{height:200}}>
+        <OwlCarousel className='owl-theme' {...SliderCarouselOptions}>
           <div className="item">
             <img
               className="img"

@@ -1,0 +1,31 @@
+.nav-btn {
+  height: 47px;
+  position: absolute;
+  width: 26px;
+  cursor: pointer;
+  top: 40% !important;
+}
+
+.prev-slide {
+  left: 20px;
+}
+.next-slide {
+  right: 20px;
+}
+
+.item:hover {
+  cursor: pointer;
+}
+
+.item:hover .img {
+  opacity: 0.4;
+  transition-property: opacity;
+  transition-duration: 0.6s;
+  transition-timing-function: ease;
+  transition-delay: 0.2s;
+}
+
+img {
+  z-index: -1;
+  position: relative;
+}
