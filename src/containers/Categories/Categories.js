@@ -1,124 +1,72 @@
-import React from "react";
-import OwlCarousel from "react-owl-carousel";
-import {CategoriesCarouselOptions} from '../../utils/constants';
-import {CategoriesWrap} from './Styled';
-import {CategoryTitle} from '../../components/CategoryTitle';
-import "owl.carousel/dist/assets/owl.carousel.css";
-import "owl.carousel/dist/assets/owl.theme.default.css";
-import "../../utils/commonStyles.css";
+import React, { useState, useEffect } from "react";
+import { Spinner } from "../../components/Spinner";
+import { CategoriesWrap, SpinnerWrap } from "./Styled";
+import { CategoryCarousel } from "../../components/CategoryCarousel";
+import { CategoryTitle } from "../../components/CategoryTitle";
 
-const image2="http://cp-img-cdn-lb.aws.playco.com/nehrgharfilms/LAALKABOOTARY2019M/LAALKABOOTARY2019M-474x677-PST.jpg";
+const homePageData = require("../../utils/homepage.json");
 
 export const Categories = (props) => {
+  const [categories, setCategories] = useState(getCategories());
+
+  useEffect(() => {
+    setCategories(getCategoriesWithSlides());
+  }, []);
+
   return (
-      <CategoriesWrap>
-        <CategoryTitle title="Ramadan TV Shows"/>
-        <OwlCarousel className='owl-theme' {...CategoriesCarouselOptions}>
-        <div className="item">
-            <img
-              className="img"
-              src={image2}
-            />
+    <CategoriesWrap>
+      {categories.map((item, index) => {
+        return (
+          <div key={index}>
+            <CategoryTitle title={item.title} />
+            {item.thumbnails && item.thumbnails.length > 0 ? (
+              <CategoryCarousel slides={item.thumbnails} />
+            ) : (
+              <SpinnerWrap>
+                <Spinner />
+              </SpinnerWrap>
+            )}
           </div>
-          <div className="item">
-            <img
-              className="img"
-              src={image2}
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={
-                "http://cp-img-cdn-lb.aws.playco.com/FOX/THEWALKINGDEADY2010S09E001/THEWALKINGDEADY2010S09E001-474x677-PST.jpg"
-              }
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={image2}
-            />
-          </div>
-          <div className="item">
-            <img
-              className="img"
-              src={image2}
-            />
-          </div>
-        </OwlCarousel>
-      </CategoriesWrap>
+        );
+      })}
+    </CategoriesWrap>
   );
+};
+
+const getCategories = () => {
+  let categories = [];
+  homePageData.titles.forEach((module) => {
+    if (module?.moduleType !== "HERO") {
+      categories.push({
+        title: module.title,
+        moduleId: module.moduleId,
+        thumbnails: null,
+      });
+    }
+  });
+  return categories;
+};
+
+const getCategoriesWithSlides = () => {
+  let categories = [];
+  homePageData.titles.forEach((module) => {
+    if (module?.moduleType !== "HERO") {
+      const titlesForSlider = module.layoutTitles?.titles;
+      let thumbnails = [];
+      titlesForSlider.forEach((title) => {
+        if (title?.thumbnails) {
+          let url = title?.thumbnails["thumb-677x474"]?.url;
+          if (url) {
+            thumbnails.push(url);
+          }
+        }
+      });
+      categories.push({
+        title: module.title,
+        moduleId: module.moduleId,
+        thumbnails: thumbnails,
+      });
+    }
+  });
+  return categories;
 };

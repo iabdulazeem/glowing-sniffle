@@ -1,11 +1,9 @@
-import {CategoryTitleWrap, CategoryText} from './Styled';
+import { CategoryTitleWrap, CategoryText } from "./Styled";
 
-export const CategoryTitle = (props) =>{
-    return (
-        <CategoryTitleWrap>
-            <CategoryText>
-                {props.title}
-            </CategoryText>
-        </CategoryTitleWrap>
-    );
-}
+export const CategoryTitle = (props) => {
+  return (
+    <CategoryTitleWrap>
+      <CategoryText>{props.title}</CategoryText>
+    </CategoryTitleWrap>
+  );
+};

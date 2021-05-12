@@ -1,1 +1,1 @@
-export {NavSection} from './NavSection';
+export { NavSection } from "./NavSection";
